@@ -8,7 +8,7 @@
       <div class="col-md-8">
 
         <h1 class="my-4">Page Heading
-          <small>Secondary Text <b></b></small>
+          <small>Secondary Text <b>{{ user.username }}!</b></small>
         </h1>
 
         <!-- Blog Post -->
@@ -82,6 +82,7 @@
         </div>
 
         <!-- Categories Widget -->
+        {% if turn_on_block == True %}
         <div class="card my-4">
           <h5 class="card-header">Categories</h5>
           <div class="card-body">
@@ -115,6 +116,7 @@
             </div>
           </div>
         </div>
+        {% endif %}
 
         <!-- Side Widget -->
         <div class="card my-4">
