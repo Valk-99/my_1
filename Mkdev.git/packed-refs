@@ -1,8 +1,0 @@
-# pack-refs with: peeled fully-peeled sorted 
-73dc17750ecb98c279c210a3f142760208dce2e6 refs/heads/first-commit
-a421916069751759eba468157812e79c33dade9f refs/heads/five-commit
-ad0df38109fb92a45e3968c3e9bd80412d3d5754 refs/heads/fourth-commit
-81fb67ddd4681ee147b45f94ad636e959d598292 refs/heads/main
-61123b60d85b735227c4105b1ddaa257a41c55a8 refs/heads/secound-commit
-7fe760203e8d3b000cba15206ef960355e0a70b2 refs/heads/six-commit
-0ee2d48ab5c288dfc9dbd81dd360979a3cae5138 refs/heads/third-commit
