@@ -2,7 +2,64 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e2b63be-a005-429c-9ed5-15a22d309b55" name="Default Changelist" comment="wr">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/mkdev.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/CHANGES.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/README.ru.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/arta.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/ascetic.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-dune.dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-dune.light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-forest.dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-forest.light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-heath.dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-heath.light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-lakeside.dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-lakeside.light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-seaside.dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-seaside.light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/brown_paper.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/brown_papersq.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/docco.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/far.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/foundation.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/github.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/googlecode.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/idea.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/ir_black.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/magula.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/mono-blue.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/monokai_sublime.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/obsidian.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/paraiso.dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/paraiso.light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/pojoaque.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/pojoaque.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/railscasts.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/rainbow.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/school_book.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/school_book.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/solarized_dark.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/solarized_light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/sunburst.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/tomorrow-night-blue.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/tomorrow-night-bright.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/tomorrow-night-eighties.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/tomorrow-night.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/tomorrow.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/vs.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/xcode.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/zenburn.css" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
