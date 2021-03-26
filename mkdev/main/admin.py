@@ -6,7 +6,7 @@ from django.contrib.flatpages.models import FlatPage
 from ckeditor.widgets import CKEditorWidget
 
 from django import forms
-from .models import *
+from .models import Product, Category, Customer, Seller, Order, Tag
 
 
 class FlatpageForm(FlatpageFormOld):
