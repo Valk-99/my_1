@@ -8,15 +8,16 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Blog Home - {% block title %}{% endblock %}</title>
+  <title>Ecommerce - {% block title %}{% endblock %}</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="{% static 'css/blog-home.css' %}" rel="stylesheet">
+  <link href="{% static 'css/shop-homepage.css' %}" rel="stylesheet">
 
 </head>
+
 
 <body>
 
@@ -35,14 +36,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/pages/about/">О нас</a>
+            <a class="nav-link" href="/pages/about">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/pages/contacts/">Контакты</a>
+            <a class="nav-link" href="/pages/contacts">Contact</a>
           </li>
+
         </ul>
       </div>
     </div>
@@ -50,10 +52,23 @@
 
   <!-- Page Content -->
   <div class="container">
+
     <div class="row">
-    {% block content %}{% endblock %}
-      <!-- Blog Entries Column -->
+
+{% include 'tags_include/search_widget.html' %}
+      <!-- /.col-lg-3 -->
+
+      <div class="col-lg-9">
+
+         {% block content %}{% endblock %}
+
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
     </div>
+    <!-- /.row -->
 
   </div>
   <!-- /.container -->
