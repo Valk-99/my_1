@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 
 class Seller(models.Model):
@@ -24,6 +25,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('tag_slug', kwargs={'tag_slug': self.slug})
 
 
 class Product(models.Model):

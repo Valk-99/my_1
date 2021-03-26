@@ -1,11 +1,20 @@
-      <div class="col-lg-3">
+{% load poll_extras %}
+<div class="col-lg-3">
 
-        <h1 class="my-4">Shop Name</h1>
-        <a href="#" class="list-group-item text-dark">Hello {{ user.username }}</a>
+        <h1 class="my-4">Category</h1>
+        <a href="#" class="list-group-item text-dark">Hello  {{ user.username|initial_letter_filter }}<br>{{ now }}</a>
         <div class="list-group">
           <a href="#" class="list-group-item">Category 1</a>
           <a href="#" class="list-group-item">Category 2</a>
           <a href="#" class="list-group-item">Category 3</a>
         </div>
 
+            <h1 class="my-4">Tags</h1>
+        <div class="list-group mb-3">
+            {% for item in Tag %}
+          <a href="{{ item.get_absolute_url }}" class="list-group-item">{{ item.name }}</a>
+            {% endfor %}
+        </div>
+
       </div>
+
