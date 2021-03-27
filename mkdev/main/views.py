@@ -1,12 +1,11 @@
 from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView
 
 from main.forms import ProfileForm
-from main.models import Product, Tag
+from main.models import Product, Tag, Profile
 
 
 class IndexPageListView(ListView):
@@ -52,7 +51,9 @@ class ProductByTagListView(ListView):
 
 
 class ProfileUpdate(LoginRequiredMixin,UpdateView):
-    model = User
+    model = Profile
     form_class = ProfileForm
+    login_url = 'index'
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('index')
+    pk_url_kwarg = 'user_pk'

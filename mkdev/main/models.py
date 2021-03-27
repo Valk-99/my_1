@@ -3,6 +3,13 @@ from django.db import models
 from django.urls import reverse
 
 
+class Profile(models.Model):
+    user_profile = models.OneToOneField(User, on_delete=models.CASCADE, default='User.username')
+
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'user_pk': self.pk})
+
+
 class Seller(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,)
     name = models.CharField(max_length=50)
