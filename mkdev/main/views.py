@@ -1,9 +1,12 @@
 from datetime import datetime
 
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView
 
-from main.models import Product, Tag
+from main.forms import ProfileForm
+from main.models import Product, Tag, Profile
 
 
 class IndexPageListView(ListView):
@@ -46,3 +49,14 @@ class ProductByTagListView(ListView):
 
     def get_queryset(self):
         return Product.objects.filter(tags__slug=self.kwargs['tag_slug'])
+
+
+class ProfileUpdate(LoginRequiredMixin,UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    login_url = 'index'
+    template_name = 'accounts/profile.html'
+    success_url = reverse_lazy('index')
+
+    def get_object(self, queryset=None):
+        return self.request.user
