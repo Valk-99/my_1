@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView
 
@@ -56,4 +57,6 @@ class ProfileUpdate(LoginRequiredMixin,UpdateView):
     login_url = 'index'
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('index')
-    pk_url_kwarg = 'user_pk'
+
+    def get_object(self, queryset=None):
+        return self.request.user
