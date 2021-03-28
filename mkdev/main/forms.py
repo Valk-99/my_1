@@ -11,7 +11,7 @@ def validate_age(age):
                               params={'age': age}, )
 
 
-class ProfileForm(forms.ModelForm, ValidationError):
+class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(max_length=30, widget=forms.EmailInput(attrs={'class': 'form-control'}))
