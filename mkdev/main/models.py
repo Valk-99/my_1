@@ -5,6 +5,7 @@ from django.urls import reverse
 
 class Profile(models.Model):
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
+    how_old = models.IntegerField(null=True)
 
     def get_absolute_url(self):
         return reverse('profile', kwargs={'pk': self.pk})
