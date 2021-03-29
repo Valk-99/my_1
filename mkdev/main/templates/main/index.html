@@ -2,9 +2,10 @@
 
 {%  block title %}Главная страница{% endblock %}
 
-
+{% block tag %}{% include 'tags_include/search_widget.html' %}{% endblock %}
 {% block content %}
 {% if turn_on_block == True %}
+
         <div class="row mt-4">
 
           {% for product in products %}
