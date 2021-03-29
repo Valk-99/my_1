@@ -51,7 +51,7 @@ class ProductByTagListView(ListView):
         return Product.objects.filter(tags__slug=self.kwargs['tag_slug'])
 
 
-class ProfileCreate(CreateView):
+class ProfileCreate(LoginRequiredMixin,CreateView):
     """Создание профиля пользователя"""
     model = Profile
     form_class = ProfileForm
