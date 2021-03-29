@@ -7,6 +7,9 @@ class Profile(models.Model):
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
     how_old = models.IntegerField(null=True)
 
+    def __str__(self):
+        return f'{self.user_profile} has {self.how_old}'
+
     def get_absolute_url(self):
         return reverse('profile', kwargs={'pk': self.pk})
 

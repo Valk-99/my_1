@@ -12,9 +12,9 @@ def validate_age(age):
 
 
 class ProfileForm(forms.ModelForm):
-    user_profile = forms.CharField(widget=forms.HiddenInput())
+    user_profile = forms.CharField()
     how_old = forms.IntegerField(validators=[validate_age],widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Profile
-        fields = ['how_old']
+        fields = ['user_profile','how_old']

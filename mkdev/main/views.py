@@ -55,6 +55,7 @@ class ProfileCreate(CreateView):
     """Создание профиля пользователя"""
     model = Profile
     form_class = ProfileForm
+    template_name = 'accounts/profile_form.html'
 
     def get_initial(self):
         # этод метод я оставил только при создании так как связку User-Profile надо устанавливать
