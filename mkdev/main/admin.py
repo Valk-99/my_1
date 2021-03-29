@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
 from django.contrib.flatpages.admin import FlatpageForm as FlatpageFormOld
 from django.contrib.flatpages.models import FlatPage
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 
 from ckeditor.widgets import CKEditorWidget
 
@@ -21,20 +23,6 @@ class FlatPageAdmin(FlatPageAdminOld):
     form = FlatpageForm
 
 
-admin.site.unregister(FlatPage)
-admin.site.register(FlatPage, FlatPageAdmin)
-admin.site.register(Product)
-admin.site.register(Category)
-admin.site.register(Customer)
-admin.site.register(Tag)
-admin.site.register(Seller)
-admin.site.register(Order)
-admin.site.register(Profile)
-
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
-
-
 class ProfileInLine(admin.StackedInline):
     model = Profile
     can_delete = False
@@ -45,5 +33,14 @@ class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInLine,)
 
 
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)
+admin.site.register(Product)
+admin.site.register(Category)
+admin.site.register(Customer)
+admin.site.register(Tag)
+admin.site.register(Seller)
+admin.site.register(Order)
+admin.site.register(Profile)
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
