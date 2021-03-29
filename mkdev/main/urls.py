@@ -1,10 +1,13 @@
 from django.urls import path
 from django.contrib.flatpages import views as viewsf
 
-from .views import IndexPageListView, ProductDetailView, ProductByTagListView, ProfileUpdate, ProfileCreate
+from .views import IndexPageListView, ProductDetailView, ProductByTagListView, ProfileUpdate, ProfileCreate, \
+    ProductUpdate, CreateProduct
 
 urlpatterns = [
     path('', IndexPageListView.as_view(), name='index'),
+    path('good/add/', CreateProduct.as_view(), name='product_create'),
+    path('good/<int:pk>/edit/', ProductUpdate.as_view(), name='product_update'),
     path('good/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     path('good/<slug:tag_slug>/', ProductByTagListView.as_view(), name='tag_slug'),
 

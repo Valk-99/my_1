@@ -1,11 +1,10 @@
 from datetime import datetime
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
-from main.forms import ProfileForm
+from main.forms import ProfileForm, ProductCreateUpdateForm
 from main.models import Product, Tag, Profile
 
 
@@ -71,3 +70,19 @@ class ProfileUpdate(LoginRequiredMixin,UpdateView):
     form_class = ProfileForm
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('index')
+
+
+class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin,CreateView):
+    permission_required = 'main.add_product'
+    login_url = 'index'
+    model = Product
+    form_class = ProductCreateUpdateForm
+    template_name = 'main/product_form.html'
+
+
+class ProductUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
+    permission_required = 'main.change_product'
+    login_url = 'index'
+    model = Product
+    form_class = ProductCreateUpdateForm
+    template_name = 'main/product_update_form.html'
