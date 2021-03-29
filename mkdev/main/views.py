@@ -11,7 +11,7 @@ from main.models import Product, Tag, Profile
 
 class IndexPageListView(ListView):
     model = Product
-    paginate_by = 10
+    paginate_by = 6
     template_name = 'main/index.html'
     context_object_name = 'products'
 
