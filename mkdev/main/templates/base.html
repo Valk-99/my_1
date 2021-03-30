@@ -38,14 +38,25 @@
           <li class="nav-item">
             <a class="nav-link" href="/pages/about">About</a>
           </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' pk=user.pk %}">Profile</a>
-          </li>
-          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="/pages/contacts">Contact</a>
           </li>
+                    {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' pk=user.pk %}">Profile</a>
+          </li>
+
+                              <li class="nav-item">
+            <a class="nav-link text-danger" href="{% url 'account_logout' %}">Выход</a>
+          </li>
+          {% else %}
+                              <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_login' %}">Вход</a>
+          </li>
+                              <li class="nav-item">
+            <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
+          </li>
+                    {% endif %}
         </ul>
       </div>
     </div>
