@@ -1,6 +1,10 @@
 from datetime import datetime
 
+from allauth.account.views import SignupView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import User, Group
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
@@ -87,3 +91,12 @@ class ProductUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
     model = Product
     form_class = ProductCreateUpdateForm
     template_name = 'main/product_update_form.html'
+
+
+class MySignupView(SignupView):
+    pass
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            instance.groups.add(Group.objects.get(name='common users'))
