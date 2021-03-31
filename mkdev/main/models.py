@@ -72,8 +72,7 @@ class Product(models.Model):
 @receiver(post_save, sender=Product)
 def create_product(sender,created, instance, **kwargs):
     domain = Site.objects.get_current().domain
-    path = Product.get_absolute_url
-    url = 'http://{domain}{path}'.format(domain=domain, path=path)
+    url = 'http://{domain}'.format(domain=domain)
     subject, from_email, to = 'Subject', 'from@xxx.com', 'to@xxx.com'
     if created and instance.is_active == True:
         html_content = render_to_string('main/add_product_mail.html', {'varname':'Новый продукт на сайте', 'url': url}),
