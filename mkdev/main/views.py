@@ -99,4 +99,4 @@ class MySignupView(SignupView):
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created,**kwargs):
         if created:
-            instance.groups.add(Group.objects.get_or_create(name='comm users')[0])
+            instance.groups.add(Group.objects.get_or_create(name='common users')[0])
