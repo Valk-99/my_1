@@ -70,10 +70,9 @@ class Product(models.Model):
 
 @receiver(post_save, sender=Product)
 def create_product(sender,created, instance, **kwargs):
-    product = Product.pk
     subject, from_email, to = 'Subject', 'from@xxx.com', 'to@xxx.com'
     if created and instance.is_active == True:
-        html_content = render_to_string('main/add_product_mail.html', {'varname':'Новый продукт на сайте', 'product': product}),
+        html_content = render_to_string('main/add_product_mail.html', {'varname':'Новый продукт на сайте'}),
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(
             subject,
