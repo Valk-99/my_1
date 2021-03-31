@@ -61,7 +61,7 @@ class Product(models.Model):
         return reverse('product_detail', kwargs={'pk': self.pk})
 
     def good_add(self):
-        post_save.connect(send_mail(), sender=self)
+        post_save.connect(send_mail(), sender=self, weak=False)
 
 
 class Customer(models.Model):
