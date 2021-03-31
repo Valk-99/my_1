@@ -80,7 +80,7 @@ def create_product(sender,created, instance, **kwargs):
             from_email,
             [to],
         )
-        print(msg.send())
+        msg.send()
 
 
 
