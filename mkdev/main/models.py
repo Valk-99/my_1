@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.db import models
+from django.dispatch import receiver
 from django.urls import reverse
 from django.db.models.signals import post_save
+
 
 class Profile(models.Model):
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -60,8 +62,10 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'pk': self.pk})
 
-    def good_add(self):
-        post_save.connect(send_mail(), sender=self, weak=False)
+@receiver(post_save, sender=Product)
+def create_product(sender,created, instance, **kwargs):
+    if created and instance.is_active == True:
+        print("Product add!")
 
 
 class Customer(models.Model):
