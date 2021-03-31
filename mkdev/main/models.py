@@ -1,9 +1,14 @@
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
+from django.core import mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.db import models
 from django.dispatch import receiver
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.db.models.signals import post_save
+from django.utils.html import strip_tags
+
+from mkdev import settings
 
 
 class Profile(models.Model):
@@ -62,10 +67,21 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'pk': self.pk})
 
+
 @receiver(post_save, sender=Product)
 def create_product(sender,created, instance, **kwargs):
+    subject, from_email, to = 'Subject', 'from@xxx.com', 'to@xxx.com'
     if created and instance.is_active == True:
-        print("Product add!")
+        html_content = render_to_string('main/add_product_mail.html', {'varname':'Новый продукт на сайте'}),
+        text_content = strip_tags(html_content)
+        msg = EmailMultiAlternatives(
+            subject,
+            text_content,
+            from_email,
+            [to],
+        )
+        print(msg.send())
+
 
 
 class Customer(models.Model):
