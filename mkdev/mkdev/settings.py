@@ -143,6 +143,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 SITE_ID = 1
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
