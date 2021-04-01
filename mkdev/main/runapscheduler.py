@@ -1,5 +1,9 @@
-from django.contrib.sites.models import Site
+from datetime import timedelta
+
 from apscheduler.schedulers.background import BackgroundScheduler
+
+from django.utils import timezone
+from django.contrib.sites.models import Site
 from django.contrib.auth.models import User, Group
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -7,13 +11,17 @@ from django.utils.html import strip_tags
 
 from main.models import Product, Seller
 
+
 scheduler = BackgroundScheduler()
 
 
 def products_of_the_week():
     domain = Site.objects.get_current().domain
-    product = Product.objects.filter(tags=3, is_active=True)[:3]
-    subject, from_email, to = 'Subject', 'from@xxx.com', 'to@xxx.com'
+    products_last_week = timezone.now().date() - timedelta(days=7)
+    monday_of_last_week = products_last_week - timedelta(days=(products_last_week.isocalendar()[2] - 1))
+    monday_of_this_week = monday_of_last_week + timedelta(days=7)
+    product = Product.objects.filter(create_date__gte=monday_of_last_week, create_date__lt=monday_of_this_week)
+    subject, from_email, to = 'Subject', 'from@xxx.com', User
     url = 'http://{domain}'.format(domain=domain)
     html_content = render_to_string('main/new_product_mail.html',
                                                 {'varname': 'Новые продукты за неделю', 'url': url, 'product': product}),
