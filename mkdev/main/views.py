@@ -10,6 +10,7 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 from main.forms import ProfileForm, ProductCreateUpdateForm
 from main.models import Product, Tag, Profile
+from main.runapscheduler import products_of_the_week
 
 
 class IndexPageListView(ListView):
@@ -23,6 +24,7 @@ class IndexPageListView(ListView):
         context['turn_on_block'] = True
         context['now'] = datetime.now()
         context['Tag'] = Tag.objects.all()
+        context['add_email'] = print(products_of_the_week)
         return context
 
 
