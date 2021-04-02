@@ -12,6 +12,13 @@ from django.utils.html import strip_tags
 from mkdev import settings
 
 
+class Subscriber(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user
+
+
 class Profile(models.Model):
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
     how_old = models.IntegerField(null=True)
