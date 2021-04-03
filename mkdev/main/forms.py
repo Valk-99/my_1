@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from main.models import Profile, Product
+from .tasks import send_email_task_product
 
 
 def validate_age(age):
@@ -24,6 +25,11 @@ class ProductCreateUpdateForm(forms.ModelForm):
     slug = forms.SlugField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
     description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     price = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
+    def send_email(self):
+        send_email_task_product.delay(
+        self.cleaned_data['title'], self.cleaned_data['slug'], self.cleaned_data['description'], self.cleaned_data['price'])
+
 
     class Meta:
         model = Product
