@@ -85,6 +85,10 @@ class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin,CreateView):
     form_class = ProductCreateUpdateForm
     template_name = 'main/product_form.html'
 
+    def form_valid(self, form):
+        form.instance.send_email()
+        form.instance.save()
+
 
 class ProductUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
     permission_required = 'main.change_product'

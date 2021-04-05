@@ -9,13 +9,6 @@ from django.db.models.signals import post_save
 from django.utils.html import strip_tags
 
 
-class Subscriber(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user
-
-
 class Profile(models.Model):
     user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
     how_old = models.IntegerField(null=True)
@@ -72,9 +65,12 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'pk': self.pk})
 
-    def form_valid(self, form):
-        form.send_email()
-        form.save()
+    def send_email(self):
+        from .tasks import send_email_task_product
+        send_email_task_product.delay(
+            self.title, self.slug,
+            self.description, self.price
+        )
 
 
 @receiver(post_save, sender=Product)
@@ -111,3 +107,10 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Номер заказа: {self.id}'
+
+
+class Subscriber(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user

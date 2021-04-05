@@ -26,12 +26,6 @@ class ProductCreateUpdateForm(forms.ModelForm):
     description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     price = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
 
-    def send_email(self):
-        send_email_task_product.delay(
-            self.cleaned_data['title'], self.cleaned_data['slug'],
-            self.cleaned_data['description'], self.cleaned_data['price']
-        )
-
     class Meta:
         model = Product
         fields = '__all__'
