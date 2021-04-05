@@ -88,6 +88,7 @@ class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.send_email()
         form.instance.save()
+        return super().form_valid(form)
 
 
 class ProductUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
