@@ -1,7 +1,7 @@
-from celery import Celery
 from celery.utils.log import get_task_logger
 
 from mkdev.celery import app
+
 from .email import send_email_task
 
 logger = get_task_logger(__name__)
