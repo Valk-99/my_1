@@ -4,12 +4,11 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from django.utils import timezone
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User, Group
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-from main.models import Product, Seller, Subscriber
+from main.models import Product, Subscriber
 
 scheduler = BackgroundScheduler()
 

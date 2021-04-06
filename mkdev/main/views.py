@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
@@ -83,6 +84,11 @@ class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin,CreateView):
     model = Product
     form_class = ProductCreateUpdateForm
     template_name = 'main/product_form.html'
+
+    def form_valid(self, form):
+        form.instance.send_email()
+        form.instance.save()
+        return super().form_valid(form)
 
 
 class ProductUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):

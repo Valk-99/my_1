@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from main.models import Profile, Product
+from main.tasks import send_email_task_product
 
 
 def validate_age(age):

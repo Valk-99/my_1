@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from ckeditor.widgets import CKEditorWidget
 
 from django import forms
-from .models import Product, Category, Customer, Seller, Order, Tag, Profile
+from .models import Product, Category, Customer, Seller, Order, Tag, Profile, Subscriber
 
 
 class FlatpageForm(FlatpageFormOld):
@@ -42,5 +42,6 @@ admin.site.register(Tag)
 admin.site.register(Seller)
 admin.site.register(Order)
 admin.site.register(Profile)
+admin.site.register(Subscriber)
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

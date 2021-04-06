@@ -1,16 +1,17 @@
-from celery import shared_task
+from celery.utils.log import get_task_logger
+
+from mkdev.celery import app
+
+from .email import send_email_task
+
+logger = get_task_logger(__name__)
 
 
-@shared_task
-def add(x, y):
-    return x + y
+@app.task(name='send_email_task_product')
+def send_email_task_product(title,slug, description, price):
+    logger.info("Sent a mesasge")
+    return send_email_task(title,slug, description, price)
 
 
-@shared_task
-def mul(x, y):
-    return x * y
 
 
-@shared_task
-def xsum(numbers):
-    return sum(numbers)
