@@ -5,9 +5,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.core.cache import cache
 
 from main.forms import ProfileForm, ProductCreateUpdateForm
 from main.models import Product, Tag, Profile
@@ -36,7 +36,14 @@ class ProductDetailView(DetailView):
         context['turn_on_block'] = True
         context['now'] = datetime.now()
         context['Tag'] = Tag.objects.all()
+        context['views'] = cache.get_or_set('views', self.object.views, 60)
         return context
+
+    def get(self, request, *args, **kwargs):
+        object = self.get_object()
+        object.views = int(object.views) + 1
+        object.save()
+        return super(ProductDetailView, self).get(self, request, *args, **kwargs)
 
 
 class ProductByTagListView(ListView):
