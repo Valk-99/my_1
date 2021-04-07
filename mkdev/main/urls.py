@@ -6,10 +6,10 @@ from .views import IndexPageListView, ProductDetailView, ProductByTagListView, P
     ProductUpdate, CreateProduct
 
 urlpatterns = [
-    path('', IndexPageListView.as_view(), name='index'),
+    path('', cache_page(60 * 15)(IndexPageListView.as_view()), name='index'),
     path('good/add/', CreateProduct.as_view(), name='product_create'),
     path('good/<int:pk>/edit/', ProductUpdate.as_view(), name='product_update'),
-    path('good/<int:pk>/', cache_page(60 * 15)(ProductDetailView.as_view()), name='product_detail'),
+    path('good/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
     path('good/<slug:tag_slug>/', ProductByTagListView.as_view(), name='tag_slug'),
 
     path('accounts/profile/create/', ProfileCreate.as_view(), name='profile_form'),
