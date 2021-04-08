@@ -58,6 +58,7 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True, null=True)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
