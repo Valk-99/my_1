@@ -1,12 +1,14 @@
 from datetime import datetime
 
 from allauth.account.views import SignupView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,\
+    PermissionRequiredMixin
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.views.generic import ListView, DetailView,\
+    UpdateView, CreateView
 from django.core.cache import cache
 
 from main.forms import ProfileForm, ProductCreateUpdateForm
@@ -43,7 +45,8 @@ class ProductDetailView(DetailView):
         object = self.get_object()
         object.views = int(object.views) + 1
         object.save()
-        return super(ProductDetailView, self).get(self, request, *args, **kwargs)
+        return super(ProductDetailView, self).get(self,
+                                                  request, *args, **kwargs)
 
 
 class ProductByTagListView(ListView):
@@ -63,21 +66,23 @@ class ProductByTagListView(ListView):
         return Product.objects.filter(tags__slug=self.kwargs['tag_slug'])
 
 
-class ProfileCreate(LoginRequiredMixin,CreateView):
+class ProfileCreate(LoginRequiredMixin, CreateView):
     """Создание профиля пользователя"""
     model = Profile
     form_class = ProfileForm
     template_name = 'accounts/profile_form.html'
 
     def get_initial(self):
-        # этод метод я оставил только при создании так как связку User-Profile надо устанавливать
-        # только при создании профиля, при редактировании профиля она уже будет и заново устанавливать не надо
+        # этод метод я оставил только при
+        # создании так как связку User-Profile надо устанавливать
+        # только при создании профиля, при редактировании
+        # профиля она уже будет и заново устанавливать не надо
         initial = super(ProfileCreate, self).get_initial()
         initial['user'] = self.request.user.id
         return initial
 
 
-class ProfileUpdate(LoginRequiredMixin,UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     login_url = 'index'
     form_class = ProfileForm
@@ -85,7 +90,7 @@ class ProfileUpdate(LoginRequiredMixin,UpdateView):
     success_url = reverse_lazy('index')
 
 
-class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin,CreateView):
+class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     permission_required = 'main.add_product'
     login_url = 'index'
     model = Product
@@ -98,7 +103,7 @@ class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin,CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdate(PermissionRequiredMixin,LoginRequiredMixin,UpdateView):
+class ProductUpdate(PermissionRequiredMixin, LoginRequiredMixin, UpdateView):
     permission_required = 'main.change_product'
     login_url = 'index'
     model = Product
@@ -110,6 +115,8 @@ class MySignupView(SignupView):
     pass
 
     @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created,**kwargs):
+    def create_user_profile(sender, instance, created, **kwargs):
         if created:
-            instance.groups.add(Group.objects.get_or_create(name='common users')[0])
+            instance.groups.add(Group.objects.get_or_create(
+                name='common users')[0]
+                                )

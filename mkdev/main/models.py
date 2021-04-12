@@ -10,7 +10,8 @@ from django.utils.html import strip_tags
 
 
 class Profile(models.Model):
-    user_profile = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_profile = models.OneToOneField(User,
+                                        on_delete=models.CASCADE)
     how_old = models.IntegerField(null=True)
 
     def __str__(self):
@@ -48,7 +49,8 @@ class Tag(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,
+                                 related_name='category')
     tags = models.ManyToManyField(Tag, blank=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
@@ -75,13 +77,15 @@ class Product(models.Model):
 
 
 @receiver(post_save, sender=Product)
-def create_product(sender,created, instance, **kwargs):
+def create_product(sender, created, instance, **kwargs):
     sub = Subscriber.objects.values_list('user__email', flat=True)
     domain = Site.objects.get_current().domain
     url = 'http://{domain}'.format(domain=domain)
     subject, from_email, to = 'Subject', 'from@xxx.com', sub
     if created and instance.is_active == True:
-        html_content = render_to_string('main/add_product_mail.html', {'varname':'Новый продукт на сайте', 'url': url}),
+        html_content = render_to_string('main/add_product_mail.html',
+                                        {'varname': 'Новый продукт на сайте',
+                                         'url': url})
         text_content = strip_tags(html_content)
         msg = EmailMultiAlternatives(
             subject,
@@ -93,16 +97,20 @@ def create_product(sender,created, instance, **kwargs):
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=150,null=True)
-    email = models.CharField(max_length=50,null=True)
+    name = models.CharField(max_length=150, null=True)
+    email = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return self.name
 
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    customer = models.ForeignKey(Customer,
+                                 on_delete=models.CASCADE,
+                                 blank=True, null=True)
+    product = models.ForeignKey(Product,
+                                on_delete=models.CASCADE,
+                                blank=True, null=True)
     quantity = models.PositiveIntegerField()
     date_order = models.DateTimeField(auto_now_add=True)
 
