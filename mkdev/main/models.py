@@ -49,7 +49,7 @@ class Tag(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, unique=True)
