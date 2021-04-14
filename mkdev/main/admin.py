@@ -4,11 +4,12 @@ from django.contrib.flatpages.admin import FlatpageForm as FlatpageFormOld
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
+from django import forms
 
 from ckeditor.widgets import CKEditorWidget
 
-from django import forms
-from .models import Product, Category, Customer, Seller, Order, Tag, Profile, Subscriber
+from .models import Product, Category, Customer, \
+    Seller, Order, Tag, Profile, Subscriber
 
 
 class FlatpageForm(FlatpageFormOld):

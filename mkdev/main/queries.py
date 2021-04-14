@@ -1,4 +1,4 @@
-''' create method '''
+""" create method """
 # Tag.objects.create(name='', slug='')
 
 ''' save method '''
