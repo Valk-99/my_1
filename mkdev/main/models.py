@@ -49,9 +49,7 @@ class Tag(models.Model):
 
 
 class Product(models.Model):
-    '''it is my model of Products'''
-    '''it is my model of Products'''
-    '''it is my model of Products'''
+    """ it is my model of Products"""
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='category')
     tags = models.ManyToManyField(Tag, blank=True)
