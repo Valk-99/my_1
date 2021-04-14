@@ -1,5 +1,3 @@
-Submodules
-----------
 main.models module
 ------------------
 
