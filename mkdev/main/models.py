@@ -14,10 +14,10 @@ class Profile(models.Model):
                                         on_delete=models.CASCADE)
     how_old = models.IntegerField(null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.user_profile} has {self.how_old}'
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse('profile', kwargs={'pk': self.pk})
 
 
@@ -25,7 +25,7 @@ class Seller(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,)
     name = models.CharField(max_length=50)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -33,7 +33,7 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -41,10 +41,10 @@ class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse('tag_slug', kwargs={'tag_slug': self.slug})
 
 
@@ -63,13 +63,13 @@ class Product(models.Model):
     update = models.DateTimeField(auto_now=True, null=True)
     views = models.IntegerField(default=0)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse('product_detail', kwargs={'pk': self.pk})
 
-    def send_email(self):
+    def send_email(self) -> str:
         from .tasks import send_email_task_product
         send_email_task_product.delay(
             self.title, self.slug,
@@ -101,7 +101,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=150, null=True)
     email = models.CharField(max_length=50, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -115,12 +115,12 @@ class Order(models.Model):
     quantity = models.PositiveIntegerField()
     date_order = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Номер заказа: {self.id}'
 
 
 class Subscriber(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.user
