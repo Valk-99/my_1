@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # module
+    'channels',
     'ckeditor',
     'ckeditor_uploader',
     'django.contrib.sites',
@@ -68,6 +69,19 @@ INSTALLED_APPS = [
     # Myapp
     'main.apps.MainConfig',
 ]
+
+
+# Конфигурация Channels
+ASGI_APPLICATION = "mkdev.routing.application"
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 MIDDLEWARE = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
