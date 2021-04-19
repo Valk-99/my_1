@@ -8,7 +8,7 @@ class CategoryFactory(DjangoModelFactory):
     class Meta:
         model = Category
 
-    name = 'Phones'
+    name = factory.Faker('name')
     slug = factory.Faker('slug')
 
 
@@ -16,5 +16,5 @@ class TagFactory(DjangoModelFactory):
     class Meta:
         model = Tag
 
-    name = 'Sport'
+    name = factory.Faker('name')
     slug = factory.Faker('slug')
