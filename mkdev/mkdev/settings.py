@@ -180,3 +180,8 @@ SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+FIXTURE_DIRS = (
+   os.path.join(PROJECT_DIR, 'fixtures'),
+)
