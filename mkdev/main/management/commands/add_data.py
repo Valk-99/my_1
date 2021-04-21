@@ -9,12 +9,13 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--category',
                             type=str,
+                            default=1,
                             help='Create category')
         parser.add_argument('--tag',
                             type=str,
+                            default=1,
                             help='Create tag')
 
     def handle(self, *args, **options):
-        for i in [options['category'], options['tag']]:
+        for i in range(5):
             CategoryFactory.create(), TagFactory.create()
-            break
