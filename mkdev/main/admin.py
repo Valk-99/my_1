@@ -34,9 +34,26 @@ class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInLine,)
 
 
+def make_published(modeladmin, request, queryset):
+    queryset.update(status='p')
+make_published.short_description = "Опубликовать выбраные продукты"
+
+
+def make_draft(modeladmin, request, queryset):
+    queryset.update(status='d')
+make_draft.short_description = "Поместить в архив выбраные продукты"
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('title', 'status')
+    list_filter = ('tags', 'create_date', 'status')
+    prepopulated_fields = {"slug": ("title",)}
+    actions = [make_published, make_draft]
+
+
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
-admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(Customer)
 admin.site.register(Tag)
