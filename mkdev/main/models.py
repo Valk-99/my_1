@@ -49,6 +49,11 @@ class Tag(models.Model):
 
 
 class Product(models.Model):
+    STATUS_CHOICES = [
+        ('d', 'Draft'),
+        ('p', 'Published'),
+        ('w', 'Withdrawn'),
+    ]
     """ it is my model of Products"""
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='category')
@@ -59,6 +64,7 @@ class Product(models.Model):
     description = models.TextField(default=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=True)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     create_date = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True, null=True)
     views = models.IntegerField(default=0)
