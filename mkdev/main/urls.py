@@ -1,14 +1,12 @@
 from django.urls import path
 from django.contrib.flatpages import views as viewsf
-from django.views.decorators.cache import cache_page
 
-from mkdev.settings import CACHE_TTL
 from .views import IndexPageListView, ProductDetailView,\
     ProductByTagListView, ProfileUpdate, ProfileCreate, \
     ProductUpdate, CreateProduct
 
 urlpatterns = [
-    path('', cache_page(CACHE_TTL)(IndexPageListView.as_view()),
+    path('', IndexPageListView.as_view(),
          name='index'),
     path('good/add/', CreateProduct.as_view(),
          name='product_create'),
