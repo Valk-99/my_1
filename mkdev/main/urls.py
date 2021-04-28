@@ -3,7 +3,7 @@ from django.contrib.flatpages import views as viewsf
 
 from .views import IndexPageListView, ProductDetailView,\
     ProductByTagListView, ProfileUpdate, ProfileCreate, \
-    ProductUpdate, CreateProduct
+    ProductUpdate, CreateProduct, SearchResultsView
 
 urlpatterns = [
     path('', IndexPageListView.as_view(),
@@ -21,6 +21,8 @@ urlpatterns = [
          name='profile_form'),
     path('accounts/profile/<int:pk>/', ProfileUpdate.as_view(),
          name='profile'),
+    # search
+    path('search/', SearchResultsView.as_view(), name='search_results'),
 
     # Flatpages
     path('main/', viewsf.flatpage, {'url': '/main/'}, name='main'),
