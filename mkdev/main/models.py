@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.db.models.signals import post_save
 from django.utils.html import strip_tags
+from django.contrib.postgres.fields import ArrayField
 
 
 class Profile(models.Model):
@@ -58,6 +59,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='category')
     tags = models.ManyToManyField(Tag, blank=True)
+    tags_array = ArrayField(models.CharField(max_length=200),default=' ', blank=True)
     seller = models.ForeignKey(Seller, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150, unique=True)
