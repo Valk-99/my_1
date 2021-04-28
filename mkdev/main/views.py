@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView,\
     UpdateView, CreateView
 from django.core.cache import cache
+from django.contrib.postgres.search import SearchVector
 
 from main.forms import ProfileForm, ProductCreateUpdateForm
 from main.models import Product, Tag, Profile
@@ -120,3 +121,20 @@ class MySignupView(SignupView):
             instance.groups.add(Group.objects.get_or_create(
                 name='common users')[0]
                                 )
+
+
+class SearchResultsView(ListView):
+    model = Product
+    template_name = 'main/search_results.html'
+
+    def get_queryset(self):  # new
+        query = self.request.GET.get('q')
+        vector = SearchVector('title', 'description')
+        object_list = Product.objects.annotate(search=vector).filter(search=query)
+        return object_list
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = datetime.now()
+        context['Tag'] = Tag.objects.all()
+        return context
