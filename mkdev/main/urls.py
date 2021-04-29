@@ -1,9 +1,9 @@
 from django.urls import path
 from django.contrib.flatpages import views as viewsf
 
-from .views import IndexPageListView, ProductDetailView,\
+from .views import IndexPageListView, ProductDetailView, \
     ProductByTagListView, ProfileUpdate, ProfileCreate, \
-    ProductUpdate, CreateProduct, SearchResultsView
+    ProductUpdate, CreateProduct, SearchResultsView, product_views
 
 urlpatterns = [
     path('', IndexPageListView.as_view(),
@@ -26,4 +26,6 @@ urlpatterns = [
 
     # Flatpages
     path('main/', viewsf.flatpage, {'url': '/main/'}, name='main'),
+
+    path('views/', product_views, name='views'),
 ]

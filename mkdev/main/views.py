@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin,\
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView,\
     UpdateView, CreateView
@@ -13,7 +14,7 @@ from django.core.cache import cache
 from django.contrib.postgres.search import SearchVector
 
 from main.forms import ProfileForm, ProductCreateUpdateForm
-from main.models import Product, Tag, Profile
+from main.models import Product, Tag, Profile, ProductViews
 
 
 class IndexPageListView(ListView):
@@ -138,3 +139,8 @@ class SearchResultsView(ListView):
         context['now'] = datetime.now()
         context['Tag'] = Tag.objects.all()
         return context
+
+
+def product_views(request):
+    views_of_product = ProductViews.objects.order_by('-views')
+    return render(request, 'main/views.html', {'views_of_product': views_of_product})
