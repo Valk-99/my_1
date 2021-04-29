@@ -132,3 +132,15 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.user
+
+
+class ProductViews(models.Model):
+    title = models.CharField(max_length=200)
+    views = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        managed = False
+        db_table = "main_product"
