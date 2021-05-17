@@ -1,0 +1,8 @@
+/products
+/products/{id}
+
+/tags
+/tags/{id}
+
+/product/tags
+/devices/{id}/tags/{id}
