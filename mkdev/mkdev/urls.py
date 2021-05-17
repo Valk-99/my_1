@@ -7,4 +7,5 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('main.urls')),
     path('accounts/', include('allauth.urls')),
+    path('api/v1/', include('api.urls')),
 ]
