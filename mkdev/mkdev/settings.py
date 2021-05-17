@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # module
+    'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
     'django.contrib.sites',
@@ -66,6 +67,7 @@ INSTALLED_APPS = [
 
     # Myapp
     'main.apps.MainConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
