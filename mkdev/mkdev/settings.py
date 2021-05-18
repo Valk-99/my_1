@@ -178,3 +178,7 @@ PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
 FIXTURE_DIRS = (
    os.path.join(PROJECT_DIR, 'fixtures'),
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+}
