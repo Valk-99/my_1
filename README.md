@@ -12,8 +12,8 @@ SQL_ENGINE=django.db.backends.postgresql<br>
 SQL_DATABASE_NAME= your db name<br>
 SQL_USER= your db user<br>
 SQL_PASSWORD= your db password<br>
-SQL_HOST= your db host<br>
-SQL_PORT= your db port<br>
-DATABASE= your db<br>
+SQL_HOST= db<br>
+SQL_PORT= 5432<br>
+DATABASE= postgres<br>
 
 4. run Dockerfile and docker-compose
