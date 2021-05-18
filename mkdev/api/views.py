@@ -1,16 +1,20 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from django.http.response import Http404
+from rest_framework import viewsets, status
 from rest_framework import permissions
-from api.serializers import UserSerializer, GroupSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from api.serializers import UserSerializer, GroupSerializer, ProductSerializer
+from main.models import Product
 
 
 class UserViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    A viewset for viewing and editing user instances.
     """
-    queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -19,4 +23,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class ProductsViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing user instances.
+    """
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
     permission_classes = [permissions.IsAuthenticated]
