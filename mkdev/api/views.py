@@ -1,12 +1,17 @@
 from django.contrib.auth.models import User, Group
-from django.http.response import Http404
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework import permissions
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
-from api.serializers import UserSerializer, GroupSerializer, ProductSerializer
+from api.serializers import UserSerializer, GroupSerializer,\
+    ProductSerializer
 from main.models import Product
+
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -33,3 +38,9 @@ class ProductsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        return self.queryset.filter(is_active__icontains='True')
+
+
