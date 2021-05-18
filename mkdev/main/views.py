@@ -6,8 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin,\
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.decorators.http import require_GET
 from django.views.generic import ListView, DetailView,\
     UpdateView, CreateView
 from django.core.cache import cache
@@ -144,3 +146,13 @@ class SearchResultsView(ListView):
 def product_views(request):
     views_of_product = ProductViews.objects.order_by('-views')
     return render(request, 'main/views.html', {'views_of_product': views_of_product})
+
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Disallow: /private/",
+        "Disallow: /junk/",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
