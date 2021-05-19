@@ -5,7 +5,7 @@ from rest_framework.pagination import PageNumberPagination
 
 from api.serializers import UserSerializer, GroupSerializer,\
     ProductSerializer
-from main.models import Product
+from main.models import Product, Profile
 
 
 class StandardResultsSetPagination(PageNumberPagination):
@@ -19,7 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
     A viewset for viewing and editing user instances.
     """
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = Profile.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 

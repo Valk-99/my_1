@@ -24,16 +24,6 @@ class FlatPageAdmin(FlatPageAdminOld):
     form = FlatpageForm
 
 
-class ProfileInLine(admin.StackedInline):
-    model = Profile
-    can_delete = False
-    verbose_name_plural = 'Profiles'
-
-
-class UserAdmin(BaseUserAdmin):
-    inlines = (ProfileInLine,)
-
-
 def make_published(modeladmin, request, queryset):
     queryset.update(status='p')
 make_published.short_description = "Опубликовать выбраные продукты"
@@ -59,7 +49,5 @@ admin.site.register(Customer)
 admin.site.register(Tag)
 admin.site.register(Seller)
 admin.site.register(Order)
-admin.site.register(Profile)
 admin.site.register(Subscriber)
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(Profile)

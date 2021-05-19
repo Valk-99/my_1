@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_GET
 from django.views.generic import ListView, DetailView,\
@@ -70,28 +70,18 @@ class ProductByTagListView(ListView):
         return Product.objects.filter(tags__slug=self.kwargs['tag_slug'])
 
 
-class ProfileCreate(LoginRequiredMixin, CreateView):
-    """Создание профиля пользователя"""
-    model = Profile
-    form_class = ProfileForm
-    template_name = 'accounts/profile_form.html'
-
-    def get_initial(self):
-        # этод метод я оставил только при
-        # создании так как связку User-Profile надо устанавливать
-        # только при создании профиля, при редактировании
-        # профиля она уже будет и заново устанавливать не надо
-        initial = super(ProfileCreate, self).get_initial()
-        initial['user'] = self.request.user.id
-        return initial
-
-
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     login_url = 'index'
-    form_class = ProfileForm
+    # form_class = ProfileForm
+    fields = '__all__'
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('index')
+
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.request.user.id)
 
 
 class CreateProduct(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
