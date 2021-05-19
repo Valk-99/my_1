@@ -20,7 +20,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['user_profile', 'how_old']
+        fields = ['how_old']
 
 
 class ProductCreateUpdateForm(forms.ModelForm):

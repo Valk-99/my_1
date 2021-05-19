@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.dispatch import receiver
@@ -10,20 +10,18 @@ from django.utils.html import strip_tags
 from django.contrib.postgres.fields import ArrayField
 
 
-class Profile(models.Model):
-    user_profile = models.OneToOneField(User,
-                                        on_delete=models.CASCADE)
+class Profile(AbstractUser):
     how_old = models.IntegerField(null=True)
 
-    def __str__(self):
-        return f'{self.user_profile} has {self.how_old}'
+    class Meta(AbstractUser.Meta):
+        pass
 
-    def get_absolute_url(self):
-        return reverse('profile', kwargs={'pk': self.pk})
+    def __str__(self):
+        return f'{self.username}'
 
 
 class Seller(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,)
+    user = models.OneToOneField(Profile, on_delete=models.CASCADE,)
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -128,7 +126,7 @@ class Order(models.Model):
 
 
 class Subscriber(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user
