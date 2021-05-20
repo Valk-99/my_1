@@ -4,9 +4,9 @@
         <h3 class="my-4">Категории</h3>
         <a href="#" class="list-group-item text-dark">Hello  {{ user.username|initial_letter_filter }}<br>{{ now }}</a>
         <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+                        {% for item in Cat %}
+          <a href="{{ item.get_absolute_url }}" class="list-group-item">{{ item.name }}</a>
+                        {% endfor %}
         </div>
 
             <h3 class="my-4">Тэги</h3>

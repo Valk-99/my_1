@@ -12,7 +12,8 @@ RUN apk update \
     && apk add libffi-dev openssl-dev cargo
 
 
-RUN pip install --upgrade pip setuptools wheel
+RUN pip install --upgrade pip
+RUN pip install pyyaml ua-parser user-agents
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 

@@ -16,7 +16,7 @@ from django.core.cache import cache
 from django.contrib.postgres.search import SearchVector
 
 from main.forms import ProfileForm, ProductCreateUpdateForm
-from main.models import Product, Tag, Profile, ProductViews
+from main.models import Product, Tag, Profile, ProductViews, Category
 
 
 class IndexPageListView(ListView):
@@ -30,6 +30,7 @@ class IndexPageListView(ListView):
         context['turn_on_block'] = True
         context['now'] = datetime.now()
         context['Tag'] = Tag.objects.all()
+        context['Cat'] = Category.objects.all()
         return context
 
 
@@ -42,6 +43,7 @@ class ProductDetailView(DetailView):
         context['turn_on_block'] = True
         context['now'] = datetime.now()
         context['Tag'] = Tag.objects.all()
+        context['Cat'] = Category.objects.all()
         context['views'] = cache.get_or_set('views', self.object.views, 60)
         return context
 
@@ -63,11 +65,31 @@ class ProductByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
         context['Tag'] = Tag.objects.all()
+        context['Cat'] = Category.objects.all()
         context['tag_title'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         return context
 
     def get_queryset(self):
         return Product.objects.filter(tags__slug=self.kwargs['tag_slug'])
+
+
+class ProductByCategoryListView(ListView):
+    model = Product
+    template_name = 'main/cat_product.html'
+    paginate_by = 10
+    context_object_name = 'products'
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = datetime.now()
+        context['Tag'] = Tag.objects.all()
+        context['Cat'] = Category.objects.all()
+        context['Cat'] = Category.objects.all()
+        context['category_title'] = Category.objects.get(slug=self.kwargs['category_slug'])
+        return context
+
+    def get_queryset(self):
+        return Product.objects.filter(category__slug=self.kwargs['category_slug'])
 
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
@@ -129,6 +151,7 @@ class SearchResultsView(ListView):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
         context['Tag'] = Tag.objects.all()
+        context['Cat'] = Category.objects.all()
         return context
 
 

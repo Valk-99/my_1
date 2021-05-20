@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_user_agents',
 
     # celery
     'django_celery_results',
@@ -101,8 +102,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'middleware.SimpleMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
+    'mkdev.middleware.StackOverflowMiddleware',
 ]
 
 
