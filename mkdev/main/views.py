@@ -73,8 +73,7 @@ class ProductByTagListView(ListView):
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     login_url = 'index'
-    # form_class = ProfileForm
-    fields = '__all__'
+    form_class = ProfileForm
     template_name = 'accounts/profile.html'
     success_url = reverse_lazy('index')
 

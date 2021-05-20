@@ -15,12 +15,17 @@ def validate_age(age):
 class ProfileForm(forms.ModelForm):
     how_old = forms.IntegerField(validators=[validate_age],
                                  widget=forms.NumberInput(
-                                     attrs={'class': 'form-control'})
-                                 )
+                                     attrs={'class': 'form-control'}))
+    first_name = forms.CharField(max_length=160, widget=forms.TextInput(
+                                     attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=160, widget=forms.TextInput(
+                                     attrs={'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(
+                                     attrs={'class': 'form-control'}))
 
     class Meta:
         model = Profile
-        fields = ['how_old']
+        fields = ['first_name', 'last_name', 'email', 'how_old']
 
 
 class ProductCreateUpdateForm(forms.ModelForm):
