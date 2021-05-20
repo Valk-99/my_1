@@ -9,7 +9,7 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 
 from .models import Product, Category, Customer, \
-    Seller, Order, Tag, Profile, Subscriber
+    Seller, Order, Tag, Profile, Subscriber, Comment
 
 
 class FlatpageForm(FlatpageFormOld):
@@ -40,6 +40,17 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('tags', 'create_date', 'status')
     prepopulated_fields = {"slug": ("title",)}
     actions = [make_published, make_draft]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('username', 'body', 'product', 'created_on', 'active')
+    list_filter = ('active', 'created_on')
+    search_fields = ('username', 'body')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)
 
 
 admin.site.unregister(FlatPage)
