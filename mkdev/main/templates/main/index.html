@@ -16,7 +16,7 @@
                 <h4 class="card-title">
                   <a href="{% url 'product_detail' pk=product.pk %}">{{ product.title }}</a>
                 </h4>
-                <h5>${{ product.price }}</h5>
+                <h5>₴{{ product.price }}</h5>
                 <p class="card-text">{{ product.description|truncatewords:"5"  }}!</p>
               </div>
               <div class="card-footer">

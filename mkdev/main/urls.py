@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 
 from .views import IndexPageListView, ProductDetailView, \
     ProductByTagListView, ProfileUpdate, \
-    ProductUpdate, CreateProduct, SearchResultsView, product_views, robots_txt
+    ProductUpdate, CreateProduct, SearchResultsView, product_views, robots_txt, ProductByCategoryListView
 
 urlpatterns = [
     path('', IndexPageListView.as_view(),
@@ -15,8 +15,10 @@ urlpatterns = [
          name='product_update'),
     path('good/<int:pk>/', ProductDetailView.as_view(),
          name='product_detail'),
-    path('good/<slug:tag_slug>/', ProductByTagListView.as_view(),
+    path('good/tag/<slug:tag_slug>/', ProductByTagListView.as_view(),
          name='tag_slug'),
+    path('good/category/<slug:category_slug>/', ProductByCategoryListView.as_view(),
+         name='category_slug'),
 
 
     path('accounts/profile/', ProfileUpdate.as_view(),
