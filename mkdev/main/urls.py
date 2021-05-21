@@ -1,10 +1,10 @@
 from django.urls import path
 from django.contrib.flatpages import views as viewsf
-from django.views.generic.base import TemplateView
 
-from .views import IndexPageListView, ProductDetailView, \
+from .views import IndexPageListView, \
     ProductByTagListView, ProfileUpdate, \
-    ProductUpdate, CreateProduct, SearchResultsView, product_views, robots_txt, ProductByCategoryListView
+    ProductUpdate, CreateProduct, SearchResultsView, product_views, robots_txt, \
+    ProductByCategoryListView, product_detail
 
 urlpatterns = [
     path('', IndexPageListView.as_view(),
@@ -13,7 +13,7 @@ urlpatterns = [
          name='product_create'),
     path('good/<int:pk>/edit/', ProductUpdate.as_view(),
          name='product_update'),
-    path('good/<int:pk>/', ProductDetailView.as_view(),
+    path('good/<int:pk>/', product_detail,
          name='product_detail'),
     path('good/tag/<slug:tag_slug>/', ProductByTagListView.as_view(),
          name='tag_slug'),
@@ -29,7 +29,7 @@ urlpatterns = [
     # Flatpages
     path('main/', viewsf.flatpage, {'url': '/main/'}, name='main'),
 
-    path('views/', product_views, name='views'),
+    path('goods/views/', product_views, name='views'),
 
     path("robots.txt", robots_txt),
 ]

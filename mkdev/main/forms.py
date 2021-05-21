@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-from main.models import Profile, Product
+from main.models import Profile, Product, Comment
 
 
 def validate_age(age):
@@ -43,3 +43,12 @@ class ProductCreateUpdateForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+
+
+class CommentForm(forms.ModelForm):
+    body = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Comment
+        fields = ['body']
+

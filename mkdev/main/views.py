@@ -10,12 +10,12 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_GET
-from django.views.generic import ListView, DetailView,\
+from django.views.generic import ListView,\
     UpdateView, CreateView
 from django.core.cache import cache
 from django.contrib.postgres.search import SearchVector
 
-from main.forms import ProfileForm, ProductCreateUpdateForm
+from main.forms import ProfileForm, ProductCreateUpdateForm, CommentForm
 from main.models import Product, Tag, Profile, ProductViews, Category
 
 
@@ -29,30 +29,42 @@ class IndexPageListView(ListView):
         context = super().get_context_data(**kwargs)
         context['turn_on_block'] = True
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         return context
 
 
-class ProductDetailView(DetailView):
-    model = Product
+def product_detail(request, pk):
     template_name = 'main/product_detail.html'
+    now = datetime.now()
+    tag = Tag.objects.all()
+    cat = Category.objects.all()
+    product = get_object_or_404(Product, pk=pk)
+    views_cache = cache.get_or_set('views', product.views, 60)
+    product.views = views_cache + 1
+    product.save()
+    comments = product.comments.filter(active=True)
+    new_comment = None
+    # Comment posted
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
 
-    def get_context_data(self, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['turn_on_block'] = True
-        context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
-        context['views'] = cache.get_or_set('views', self.object.views, 60)
-        return context
+            # Create Comment object but don't save to database yet
+            new_comment = form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.product = product
+            new_comment.username = request.user.username
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        form = CommentForm()
 
-    def get(self, request, *args, **kwargs):
-        object = self.get_object()
-        object.views = int(object.views) + 1
-        object.save()
-        return super(ProductDetailView, self).get(self,
-                                                  request, *args, **kwargs)
+    return render(request, template_name, {'product': product,
+                                           'comments': comments,
+                                           'new_comment': new_comment,
+                                           'form': form, 'now': now,
+                                           'cat': cat, 'tag': tag})
 
 
 class ProductByTagListView(ListView):
@@ -64,8 +76,8 @@ class ProductByTagListView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         context['tag_title'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         return context
 
@@ -82,9 +94,8 @@ class ProductByCategoryListView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         context['category_title'] = Category.objects.get(slug=self.kwargs['category_slug'])
         return context
 
@@ -150,8 +161,8 @@ class SearchResultsView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         return context
 
 

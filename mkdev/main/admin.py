@@ -2,14 +2,12 @@ from django.contrib import admin
 from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
 from django.contrib.flatpages.admin import FlatpageForm as FlatpageFormOld
 from django.contrib.flatpages.models import FlatPage
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
 from django import forms
 
 from ckeditor.widgets import CKEditorWidget
 
 from .models import Product, Category, Customer, \
-    Seller, Order, Tag, Profile, Subscriber
+    Seller, Order, Tag, Profile, Subscriber, Comment
 
 
 class FlatpageForm(FlatpageFormOld):
@@ -40,6 +38,17 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('tags', 'create_date', 'status')
     prepopulated_fields = {"slug": ("title",)}
     actions = [make_published, make_draft]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('username', 'body', 'product', 'created_on', 'active')
+    list_filter = ('active', 'created_on')
+    search_fields = ('username', 'body')
+    actions = ['approve_comments']
+
+    def approve_comments(self, request, queryset):
+        queryset.update(active=True)
 
 
 admin.site.unregister(FlatPage)

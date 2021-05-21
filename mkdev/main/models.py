@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.dispatch import receiver
@@ -145,3 +145,17 @@ class ProductViews(models.Model):
     class Meta:
         managed = False
         db_table = "main_product"
+
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='comments')
+    username = models.CharField(max_length=100)
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.username)

@@ -17,9 +17,9 @@
           <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
           <div class="card-body">
             <h3 class="card-title">{{ product.title }}</h3>
-            <h4>₴{{ product.price }}</h4>
+            <h4>₴ {{ product.price }}</h4>
             <p class="card-text">{{ product.description }}</p>
-            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> Просмотры товара: {{ views }}
+            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> Просмотры товара: {{product.views }}
           </div>
         </div>
         <!-- /.card -->
@@ -29,17 +29,36 @@
             Product Reviews
           </div>
           <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+<!-- comments -->
+        <h2>{{ comments.count }} comments</h2>
+              <hr>
+ {% for comment in comments %}
+            <p>{{ comment.body | linebreaks }}</p>
+            <small class="text-muted">Posted by <b>{{ comment.username }}</b> on {{ comment.created_on }}</small><br><br>
+{% endfor %}
             <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <a href="#" class="btn btn-success">Leave a Review</a>
+
+{% if request.user.is_authenticated %}
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form action="." method="post" style="margin-top: 1.3em;">
+          {{ form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success">Leave a Review</button>
+        </form>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-info" role="alert">
+          Авторизируйтесь чтобы оставить комментарий
+        </div>
+        {% endif %}
+
           </div>
+
         </div>
         <!-- /.card -->
 
