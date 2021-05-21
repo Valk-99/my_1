@@ -37,7 +37,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Главная
+            <a class="nav-link" href="{% url 'index' %}">Главная
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -63,6 +63,17 @@
             <a class="nav-link" href="{% url 'account_signup' %}">Регистрация</a>
           </li>
                     {% endif %}
+          <li class="nav-item">
+              {% with total_items=cart|length %}
+              {% if cart|length > 0 %}
+              <a class="nav-link" href="{% url 'cart_detail' %}">
+                Корзина:
+                {{ total_items }} item{{ total_items|pluralize }},
+                грн. {{ cart.get_total_price }}
+              </a>
+            {% endif %}
+            {% endwith %}
+          </li>
         </ul>
       </div>
     </div>

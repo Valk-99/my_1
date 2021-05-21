@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     # Myapp
     'main.apps.MainConfig',
     'api.apps.ApiConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -207,3 +209,5 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'main.Profile'
+
+CART_SESSION_ID = 'cart'

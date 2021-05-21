@@ -15,6 +15,7 @@ from django.views.generic import ListView,\
 from django.core.cache import cache
 from django.contrib.postgres.search import SearchVector
 
+from cart.forms import CartAddProductForm
 from main.forms import ProfileForm, ProductCreateUpdateForm, CommentForm
 from main.models import Product, Tag, Profile, ProductViews, Category
 
@@ -43,6 +44,7 @@ def product_detail(request, pk):
     views_cache = cache.get_or_set('views', product.views, 60)
     product.views = views_cache + 1
     product.save()
+    cart_product_form = CartAddProductForm()
     comments = product.comments.filter(active=True)
     new_comment = None
     # Comment posted
@@ -64,7 +66,8 @@ def product_detail(request, pk):
                                            'comments': comments,
                                            'new_comment': new_comment,
                                            'form': form, 'now': now,
-                                           'cat': cat, 'tag': tag})
+                                           'cat': cat, 'tag': tag,
+                                           'cart_product_form': cart_product_form})
 
 
 class ProductByTagListView(ListView):

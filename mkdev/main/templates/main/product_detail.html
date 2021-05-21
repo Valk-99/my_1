@@ -18,6 +18,11 @@
           <div class="card-body">
             <h3 class="card-title">{{ product.title }}</h3>
             <h4>₴ {{ product.price }}</h4>
+              <form action="{% url 'cart_add' product.id %}" method="post">
+                  {{ cart_product_form }}
+                  {% csrf_token %}
+                  <button class="btn btn-info">Добавить в корзину</button>
+              </form>
             <p class="card-text">{{ product.description }}</p>
             <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> Просмотры товара: {{product.views }}
           </div>
