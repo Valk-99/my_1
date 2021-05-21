@@ -4,14 +4,14 @@
         <h3 class="my-4">Категории</h3>
         <a href="#" class="list-group-item text-dark">Hello  {{ user.username|initial_letter_filter }}<br>{{ now }}</a>
         <div class="list-group">
-                        {% for item in Cat %}
+                        {% for item in cat %}
           <a href="{{ item.get_absolute_url }}" class="list-group-item">{{ item.name }}</a>
                         {% endfor %}
         </div>
 
             <h3 class="my-4">Тэги</h3>
         <div class="list-group mb-3">
-            {% for item in Tag %}
+            {% for item in tag %}
           <a href="{{ item.get_absolute_url }}" class="list-group-item">{{ item.name }}</a>
             {% endfor %}
         </div>

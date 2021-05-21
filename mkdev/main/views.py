@@ -30,14 +30,20 @@ class IndexPageListView(ListView):
         context = super().get_context_data(**kwargs)
         context['turn_on_block'] = True
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         return context
 
 
 def product_detail(request, pk):
     template_name = 'main/product_detail.html'
+    now = datetime.now()
+    tag = Tag.objects.all()
+    cat = Category.objects.all()
     product = get_object_or_404(Product, pk=pk)
+    views_cache = cache.get_or_set('views', product.views, 60)
+    product.views = views_cache + 1
+    product.save()
     comments = product.comments.filter(active=True)
     new_comment = None
     # Comment posted
@@ -49,6 +55,7 @@ def product_detail(request, pk):
             new_comment = form.save(commit=False)
             # Assign the current post to the comment
             new_comment.product = product
+            new_comment.username = request.user.username
             # Save the comment to the database
             new_comment.save()
     else:
@@ -57,7 +64,8 @@ def product_detail(request, pk):
     return render(request, template_name, {'product': product,
                                            'comments': comments,
                                            'new_comment': new_comment,
-                                           'form': form})
+                                           'form': form, 'now': now,
+                                           'cat': cat, 'tag': tag})
 
 # class ProductDetailView(FormMixin, DetailView):
 #     model = Product
@@ -97,8 +105,8 @@ class ProductByTagListView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         context['tag_title'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         return context
 
@@ -115,9 +123,8 @@ class ProductByCategoryListView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         context['category_title'] = Category.objects.get(slug=self.kwargs['category_slug'])
         return context
 
@@ -183,8 +190,8 @@ class SearchResultsView(ListView):
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['now'] = datetime.now()
-        context['Tag'] = Tag.objects.all()
-        context['Cat'] = Category.objects.all()
+        context['tag'] = Tag.objects.all()
+        context['cat'] = Category.objects.all()
         return context
 
 

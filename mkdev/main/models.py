@@ -149,7 +149,7 @@ class ProductViews(models.Model):
 
 class Comment(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='comments')
-    username = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    username = models.CharField(max_length=100)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)

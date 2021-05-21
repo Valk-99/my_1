@@ -46,6 +46,9 @@ class ProductCreateUpdateForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    body = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Comment
-        fields = ('username', 'body')
+        fields = ['body']
+
