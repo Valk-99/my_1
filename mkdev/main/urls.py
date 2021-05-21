@@ -1,6 +1,5 @@
 from django.urls import path
 from django.contrib.flatpages import views as viewsf
-from django.views.generic.base import TemplateView
 
 from .views import IndexPageListView, \
     ProductByTagListView, ProfileUpdate, \

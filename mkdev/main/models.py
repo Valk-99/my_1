@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.dispatch import receiver

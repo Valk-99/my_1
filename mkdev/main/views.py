@@ -10,14 +10,13 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_GET
-from django.views.generic import ListView, DetailView,\
+from django.views.generic import ListView,\
     UpdateView, CreateView
 from django.core.cache import cache
 from django.contrib.postgres.search import SearchVector
-from django.views.generic.edit import FormMixin
 
 from main.forms import ProfileForm, ProductCreateUpdateForm, CommentForm
-from main.models import Product, Tag, Profile, ProductViews, Category, Comment
+from main.models import Product, Tag, Profile, ProductViews, Category
 
 
 class IndexPageListView(ListView):
@@ -66,34 +65,6 @@ def product_detail(request, pk):
                                            'new_comment': new_comment,
                                            'form': form, 'now': now,
                                            'cat': cat, 'tag': tag})
-
-# class ProductDetailView(FormMixin, DetailView):
-#     model = Product
-#     template_name = 'main/product_detail.html'
-#     form_class = CommentForm
-#     success_url = 'product_detail'
-#
-#     def form_valid(self, form):
-#         product = get_object_or_404(Product, id=self.kwargs['id'])
-#         form.instance.post = product
-#         return super().form_valid(form)
-#
-#     def get_context_data(self, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['turn_on_block'] = True
-#         context['now'] = datetime.now()
-#         context['Tag'] = Tag.objects.all()
-#         context['Cat'] = Category.objects.all()
-#         context['new_comment '] = None
-#         context['views'] = cache.get_or_set('views', self.object.views, 60)
-#         return context
-#
-#     def get(self, request, *args, **kwargs):
-#         object = self.get_object()
-#         object.views = int(object.views) + 1
-#         object.save()
-#         return super(ProductDetailView, self).get(self,
-#                                                   request, *args, **kwargs)
 
 
 class ProductByTagListView(ListView):
