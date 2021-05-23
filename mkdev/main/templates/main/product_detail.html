@@ -7,28 +7,31 @@
 
 {% block content %}
 
-    <div class="row">
-
-      <!-- /.col-lg-3 -->
-
-      <div class="col-lg-9">
-
-        <div class="card mt-4">
-          <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
-          <div class="card-body">
-            <h3 class="card-title">{{ product.title }}</h3>
-            <h4>₴ {{ product.price }}</h4>
-              <form action="{% url 'cart_add' product.id %}" method="post">
+<!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6">
+                        <h1 class="display-5 fw-bolder">{{ product.title }}</h1>
+                        <div class="fs-5 mb-5">
+                            <span>₴ {{ product.price }}</span><br>
+                            <span>Просмотры: {{product.views }}</span>
+                        </div>
+                        <p class="lead">{{ product.description }}</p>
+                        <div class="d-flex">
+                  <form action="{% url 'cart_add' product.id %}" method="post">
                   {{ cart_product_form }}
                   {% csrf_token %}
-                  <button class="btn btn-info">Добавить в корзину</button>
-              </form>
-            <p class="card-text">{{ product.description }}</p>
-            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> Просмотры товара: {{product.views }}
-          </div>
-        </div>
-        <!-- /.card -->
-
+                  <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                  <i class="bi-cart-fill me-1"></i>
+                  Добавить в корзину
+                  </button>
+                  </form>
+                        </div>
+                    </div>
+                </div>
+                <!--Comments-->
         <div class="card card-outline-secondary my-4">
           <div class="card-header">
             Product Reviews
@@ -66,10 +69,66 @@
 
         </div>
         <!-- /.card -->
+            </div>
+        </section>
 
-      </div>
-      <!-- /.col-lg-9 -->
 
-    </div>
+
 {% endblock %}
 
+
+
+<!--Product-->
+        <div class="card mt-4">
+          <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
+          <div class="card-body">
+            <h3 class="card-title">{{ product.title }}</h3>
+            <h4>₴ {{ product.price }}</h4>
+              <form action="{% url 'cart_add' product.id %}" method="post">
+                  {{ cart_product_form }}
+                  {% csrf_token %}
+                  <button class="btn btn-info">Добавить в корзину</button>
+              </form>
+            <p class="card-text">{{ product.description }}</p>
+            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> Просмотры товара: {{product.views }}
+          </div>
+        </div>
+
+<!--Comments-->
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            Product Reviews
+          </div>
+          <div class="card-body">
+<!-- comments -->
+        <h2>{{ comments.count }} comments</h2>
+              <hr>
+ {% for comment in comments %}
+            <p>{{ comment.body | linebreaks }}</p>
+            <small class="text-muted">Posted by <b>{{ comment.username }}</b> on {{ comment.created_on }}</small><br><br>
+{% endfor %}
+            <hr>
+
+{% if request.user.is_authenticated %}
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form action="." method="post" style="margin-top: 1.3em;">
+          {{ form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success">Leave a Review</button>
+        </form>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-info" role="alert">
+          Авторизируйтесь чтобы оставить комментарий
+        </div>
+        {% endif %}
+
+          </div>
+
+        </div>
+        <!-- /.card -->
