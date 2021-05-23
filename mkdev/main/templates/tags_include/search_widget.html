@@ -16,5 +16,25 @@
             {% endfor %}
         </div>
 
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">title</th>
+      <th scope="col">views</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for views in views_of_product %}
+    <tr>
+      <th scope="row">{{ views.id }}</th>
+      <td>{{ views.title }}</td>
+      <td>{{ views.views }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
       </div>
 

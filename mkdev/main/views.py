@@ -32,6 +32,7 @@ class IndexPageListView(ListView):
         context['now'] = datetime.now()
         context['tag'] = Tag.objects.all()
         context['cat'] = Category.objects.all()
+        context['views_of_product'] = ProductViews.objects.order_by('-views')
         return context
 
 
@@ -40,6 +41,7 @@ def product_detail(request, pk):
     now = datetime.now()
     tag = Tag.objects.all()
     cat = Category.objects.all()
+    views_of_product = ProductViews.objects.order_by('-views')
     product = get_object_or_404(Product, pk=pk)
     views_cache = cache.get_or_set('views', product.views, 60)
     product.views = views_cache + 1
@@ -67,7 +69,8 @@ def product_detail(request, pk):
                                            'new_comment': new_comment,
                                            'form': form, 'now': now,
                                            'cat': cat, 'tag': tag,
-                                           'cart_product_form': cart_product_form})
+                                           'cart_product_form': cart_product_form,
+                                           'views_of_product': views_of_product})
 
 
 class ProductByTagListView(ListView):
@@ -82,6 +85,7 @@ class ProductByTagListView(ListView):
         context['tag'] = Tag.objects.all()
         context['cat'] = Category.objects.all()
         context['tag_title'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
+        context['views_of_product'] = ProductViews.objects.order_by('-views')
         return context
 
     def get_queryset(self):
@@ -100,6 +104,7 @@ class ProductByCategoryListView(ListView):
         context['tag'] = Tag.objects.all()
         context['cat'] = Category.objects.all()
         context['category_title'] = Category.objects.get(slug=self.kwargs['category_slug'])
+        context['views_of_product'] = ProductViews.objects.order_by('-views')
         return context
 
     def get_queryset(self):
@@ -166,6 +171,7 @@ class SearchResultsView(ListView):
         context['now'] = datetime.now()
         context['tag'] = Tag.objects.all()
         context['cat'] = Category.objects.all()
+        context['views_of_product'] = ProductViews.objects.order_by('-views')
         return context
 
 
