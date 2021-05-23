@@ -116,7 +116,7 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     login_url = 'index'
     form_class = ProfileForm
     template_name = 'accounts/profile.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('profile')
 
     def get_object(self, queryset=None):
         if not queryset:

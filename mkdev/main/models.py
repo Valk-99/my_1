@@ -106,28 +106,6 @@ def create_product(sender, created, instance, **kwargs):
         msg.send()
 
 
-class Customer(models.Model):
-    name = models.CharField(max_length=150, null=True)
-    email = models.CharField(max_length=50, null=True)
-
-    def __str__(self):
-        return self.name
-
-
-class Order(models.Model):
-    customer = models.ForeignKey(Customer,
-                                 on_delete=models.CASCADE,
-                                 blank=True, null=True)
-    product = models.ForeignKey(Product,
-                                on_delete=models.CASCADE,
-                                blank=True, null=True)
-    quantity = models.PositiveIntegerField()
-    date_order = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'Номер заказа: {self.id}'
-
-
 class Subscriber(models.Model):
     user = models.OneToOneField(Profile, on_delete=models.CASCADE)
 
