@@ -6,8 +6,9 @@ from django import forms
 
 from ckeditor.widgets import CKEditorWidget
 
-from .models import Product, Category, Customer, \
-    Seller, Order, Tag, Profile, Subscriber, Comment
+from orders.models import Order, OrderItem
+from .models import Product, Category, \
+    Seller, Tag, Profile, Subscriber, Comment
 
 
 class FlatpageForm(FlatpageFormOld):
@@ -51,12 +52,19 @@ class CommentAdmin(admin.ModelAdmin):
         queryset.update(active=True)
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    raw_id_fields = ['product']
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    inlines = [OrderItemInline]
+
+
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
 admin.site.register(Category)
-admin.site.register(Customer)
 admin.site.register(Tag)
 admin.site.register(Seller)
-admin.site.register(Order)
 admin.site.register(Subscriber)
 admin.site.register(Profile)
