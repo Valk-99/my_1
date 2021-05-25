@@ -9,11 +9,12 @@ ENV CRYPTOGRAPHY_DONT_BUILD_RUST 1
 # install dependencies
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev \
-    && apk add libffi-dev openssl-dev cargo
-
+    && apk add libffi-dev openssl-dev cargo \
+    && apk add jpeg-dev zlib-dev
 
 RUN pip install --upgrade pip
 RUN pip install pyyaml ua-parser user-agents
+RUN pip install Pillow
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 

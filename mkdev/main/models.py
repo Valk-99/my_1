@@ -7,7 +7,6 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.db.models.signals import post_save
 from django.utils.html import strip_tags
-from django.contrib.postgres.fields import ArrayField
 
 
 class Profile(AbstractUser):
@@ -68,6 +67,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    image = models.ImageField(upload_to='media/%Y/%m/%d', blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True, null=True)
     views = models.IntegerField(default=0)
