@@ -5,24 +5,39 @@
 
 
 <!--info about order-->
- <div class="order-info">
  <h3>Ваш заказ</h3>
- <ul>
- {% for item in cart %}
- <li>
- {{ item.quantity }}x {{ item.product.title }}
- <span>${{ item.total_price }}</span>
- </li>
- {% endfor %}
- </ul>
- <p>Total: ${{ cart.get_total_price }}</p>
- </div>
+<table class="table table-success table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Кол-во</th>
+      <th scope="col">Товар</th>
+      <th scope="col">Цена</th>
+
+    </tr>
+      {% for item in cart %}
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"> {{ item.quantity }}</th>
+      <td>{{ item.product.title }}</td>
+      <td>{{ item.total_price }}</td>
+
+    </tr>
+      {% endfor %}
+      <tr>
+      <th class="table-info" scope="row">Всего:</th>
+      <td class="table-info"></td>
+      <td class="table-info">{{ cart.get_total_price }}</td>
+    </tr>
+  </tbody>
+</table>
+
 
 <!--form of order-->
+
  <form action="." method="post" class="order-form">
  {{ form.as_p }}
- <p><input type="submit" value="Place order"></p>
+ <p align="right"><input type="submit" class="btn btn-warning" value="Подтвердить"></p>
  {% csrf_token %}
  </form>
-
 {% endblock %}
