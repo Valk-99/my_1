@@ -43,7 +43,7 @@ def product_detail(request, pk):
     cat = Category.objects.all()
     views_of_product = ProductViews.objects.order_by('-views')
     product = get_object_or_404(Product, pk=pk)
-    views_cache = cache.get_or_set('views', product.views, 60 * 10)
+    views_cache = cache.get_or_set('views', product.views, 60)
     product.views = views_cache + 1
     product.save()
     cart_product_form = CartAddProductForm()
